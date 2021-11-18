@@ -1,6 +1,6 @@
 /* jshint strict: false, unused: false */
 
-var mysql = require('mysql');
+var mysql = require('mysql2');
 var client = require('../auth/clientdb.js');
 
 
