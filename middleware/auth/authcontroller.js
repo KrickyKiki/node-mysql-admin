@@ -5,11 +5,11 @@ var jwt = require('jsonwebtoken');
 module.exports = {
 
   login: function (req, res) {
-    var hostComponents = req.body.mysqlHost.split(':');
+    var hostComponents = req.body.mysqlHost ? req.body.mysqlHost.split(':') : [];
     mysql.createConnection({
-      user: req.body.mysqlUser,
-      password: req.body.mysqlPassword,
-      host: hostComponents[0] || 'localhost',
+      user: process.env.DB_SQL_USER || req.body.mysqlUser,
+      password: process.env.DB_SQL_PASSWORD || req.body.mysqlPassword,
+      host: process.DB_SQL_ENDPOINT || hostComponents[0] || 'localhost',
       port: hostComponents[1] || '3306',
       multipleStatements: true
     }).then(function(conn) {
