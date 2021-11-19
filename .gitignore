@@ -52,3 +52,5 @@ bower_components/
 /**/bundle.js
 
 /**/dist/*.js
+
+package-lock.json
