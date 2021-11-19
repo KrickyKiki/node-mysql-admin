@@ -17,10 +17,10 @@ module.exports = {
       });
       setTimeout(() => {
         resolve(connection);
-      }, 2000);
+      }, 600);
     });
     connection.then(function (conn) {
-        var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
+        var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret || 'shhhhhh');
         //Enables performance_schema if it was disabled\\
         conn.query(
           "update performance_schema.setup_consumers set enabled='YES' where name='events_waits_current';", 

@@ -38,13 +38,13 @@ module.exports = function myadmin(app, port) {
   app.use('/mysql', express.static(__dirname + '/public'));
   // creates secret.js with a random string if it hasn't been initialized\\
   fs.readFile('./secret.js', function(err, data) {
-    if (err.code === 'ENOENT') {
+    if (err) {
       var randomString = randomstring.generate();
       var contents = "module.exports = '" + randomString + "';";
       fs.writeFileSync(__dirname + '/secret.js', contents);
     }
     var secret = require('./secret.js');
-    app.locals.secret = secret;
+    app.locals.secret = secret || 'shhhhhh';
   });
   
   // ** Routes
