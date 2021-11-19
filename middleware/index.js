@@ -35,7 +35,7 @@ module.exports = function myadmin(app, port) {
   }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
-  app.use('/myadmin', express.static(__dirname + '/public'));
+  app.use('/mysql', express.static(__dirname + '/public'));
   // creates secret.js with a random string if it hasn't been initialized\\
   fs.readFile('./secret.js', function(err, data) {
     if (err.code === 'ENOENT') {
@@ -48,11 +48,11 @@ module.exports = function myadmin(app, port) {
   });
   
   // ** Routes
-  app.use('/myadmin/api/auth', auth);
-  app.use('/myadmin/api/db', database);
-  app.use('/myadmin/api/settings',settings);
-  app.use('/myadmin/api/system',system);
-  app.use('/myadmin/api/home',home);
+  app.use('/mysql/api/auth', auth);
+  app.use('/mysql/api/db', database);
+  app.use('/mysql/api/settings',settings);
+  app.use('/mysql/api/system',system);
+  app.use('/mysql/api/home',home);
 
   // ** Middleware
   return function myadmin(req,res,next) {

@@ -38,7 +38,7 @@ expressApp.use(nodeMyAdmin(expressApp));
 
 app.use(function*(next) {
 	// do routing by simple matching, koa-route may also work
-	if (this.path.startsWith('/myadmin')) {
+	if (this.path.startsWith('/mysql')) {
 		// direct to express
 		if (this.status === 404 || this.status === '404') {
 			delete this.res.statusCode
@@ -62,7 +62,7 @@ To begin using node-mysql-admin, simply follow the instructions below.
 [Login](#login) | [Navbar](#navbar) | [Overview](#overview) | [Database](#database) | [System](#system) | [Settings](#settings)
 
 ### Login
-Navigate to yourdomain/myadmin and log in using your MySQL Server credentials.
+Navigate to yourdomain/mysql and log in using your MySQL Server credentials.
 node-mysql-admin will attempt to connect to your MySQL server and validate the information
 you provided. Once verified, you will be redirected to the Overview page.
 
