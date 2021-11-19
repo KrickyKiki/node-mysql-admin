@@ -1,18 +1,25 @@
 var client = require('./clientdb.js');
-var mysql = require('promise-mysql');
+// var mysql = require('promise-mysql');
+var mysql = require('mysql2');
 var jwt = require('jsonwebtoken');
 
 module.exports = {
 
   login: function (req, res) {
     var hostComponents = req.body.mysqlHost ? req.body.mysqlHost.split(':') : [];
-    mysql.createConnection({
-      user: process.env.DB_SQL_USER || req.body.mysqlUser,
-      password: process.env.DB_SQL_PASSWORD || req.body.mysqlPassword,
-      host: process.DB_SQL_ENDPOINT || hostComponents[0] || 'localhost',
-      port: hostComponents[1] || '3306',
-      multipleStatements: true
-    }).then(function(conn) {
+    let connection = new Promise((resolve, reject) => {
+      mysql.createConnection({
+        user: process.env.DB_SQL_USER || req.body.mysqlUser,
+        password: process.env.DB_SQL_PASSWORD || req.body.mysqlPassword,
+        host: process.DB_SQL_ENDPOINT || hostComponents[0] || 'localhost',
+        port: hostComponents[1] || '3306',
+        multipleStatements: true
+      });
+      setTimeout(() => {
+        resolve(mysql);
+      }, 2000);
+    });
+    connection.then(function (conn) {
         var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
         //Enables performance_schema if it was disabled\\
         conn.query(
