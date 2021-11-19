@@ -8,7 +8,7 @@ module.exports = {
   login: function (req, res) {
     var hostComponents = req.body.mysqlHost ? req.body.mysqlHost.split(':') : [];
     let connection = new Promise((resolve, reject) => {
-      mysql.createConnection({
+      const connection = mysql.createConnection({
         user: process.env.DB_SQL_USER || req.body.mysqlUser,
         password: process.env.DB_SQL_PASSWORD || req.body.mysqlPassword,
         host: process.DB_SQL_ENDPOINT || hostComponents[0] || 'localhost',
@@ -16,7 +16,7 @@ module.exports = {
         multipleStatements: true
       });
       setTimeout(() => {
-        resolve(mysql);
+        resolve(connection);
       }, 2000);
     });
     connection.then(function (conn) {
